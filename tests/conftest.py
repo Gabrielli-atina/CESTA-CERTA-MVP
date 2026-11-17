@@ -3,10 +3,12 @@ from werkzeug.security import generate_password_hash
 
 from app import create_app
 from app.models import Item, Usuario, db
+from app.routes import TENTATIVAS
 
 
 @pytest.fixture()
 def app():
+    TENTATIVAS.clear()
     app = create_app({"TESTING": True, "SQLALCHEMY_DATABASE_URI": "sqlite://"})
     with app.app_context():
         db.session.add(Usuario(username="demo",
