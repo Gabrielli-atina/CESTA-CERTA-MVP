@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block conteudo %}
+<form method="post"><input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+<label for="username">Usuário</label><input id="username" name="username" autocomplete="username" required>
+<label for="password">Senha</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+<button>Entrar</button></form>{% endblock %}

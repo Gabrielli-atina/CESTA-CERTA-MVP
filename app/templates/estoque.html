@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block conteudo %}<h2>Saldo de estoque</h2>
+{% for l in linhas %}<div class="item {{ 'baixo' if l.baixo }}"><div><strong>{{ l.item.nome }}</strong><br>{{ '%g' % l.saldo }} {{ l.item.unidade }} (mínimo {{ '%g' % l.item.estoque_minimo }})</div>
+<strong>{{ '⚠ Estoque baixo' if l.baixo else '✔ Normal' }}</strong></div>
+{% else %}<p>Nenhum item cadastrado. Rode <code>flask --app run seed</code>.</p>{% endfor %}
+<a class="btn" href="{{ url_for('main.movimentar') }}">Registrar movimentação</a>{% endblock %}

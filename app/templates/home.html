@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block conteudo %}
+<form method="get"><label for="q">Buscar família pelo nome</label>
+<input id="q" name="q" value="{{ q }}" placeholder="Ex.: Souza"><button class="sec">Buscar</button></form>
+{% for f in resultados %}<div class="item">{{ f.nome_responsavel }} · {{ f.numero_pessoas }} pessoas</div>
+{% else %}{% if q %}<div class="item">Nenhuma família encontrada.</div>{% endif %}{% endfor %}
+<a class="btn" href="{{ url_for('main.nova_familia') }}">Cadastrar família</a>
+<a class="btn sec" href="{{ url_for('main.movimentar') }}">Registrar estoque</a>
+<a class="btn sec" href="{{ url_for('main.estoque') }}">Ver saldo e alertas</a>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block conteudo %}<h2>Registrar estoque</h2>
+<form method="post"><input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+<label for="tipo">Tipo de movimentação</label><select id="tipo" name="tipo"><option value="entrada">Entrada</option><option value="saida">Saída</option></select>
+<label for="item_id">Item</label><select id="item_id" name="item_id">{% for i in itens %}<option value="{{ i.id }}">{{ i.nome }} ({{ i.unidade }})</option>{% endfor %}</select>
+<label for="quantidade">Quantidade</label><input id="quantidade" name="quantidade" type="number" step="any" min="0.01" required>
+<label for="familia_id">Família atendida (só para saída)</label><select id="familia_id" name="familia_id"><option value="">—</option>{% for f in familias %}<option value="{{ f.id }}">{{ f.nome_responsavel }}</option>{% endfor %}</select>
+<button>Salvar</button></form>{% endblock %}
