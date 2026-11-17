@@ -28,6 +28,9 @@ def csrf_token():
     if "_csrf" not in session:
         session["_csrf"] = secrets.token_hex(16)
     return session["_csrf"]
+def csrf_valido(enviado):
+    esperado = session.get("_csrf")
+    return bool(esperado) and hmac.compare_digest(enviado, esperado)
 
 
 def register_security(app):
@@ -35,10 +38,8 @@ def register_security(app):
 
     @app.before_request
     def checar_csrf():
-        if request.method == "POST":
-            enviado = request.form.get("_csrf", "")
-            if not session.get("_csrf") or not hmac.compare_digest(enviado, session["_csrf"]):
-                abort(400)
+        if request.method == "POST" and not csrf_valido(request.form.get("_csrf", "")):
+            abort(400)
 
     @app.after_request
     def cabecalhos(resp):
