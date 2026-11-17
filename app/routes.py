@@ -37,7 +37,7 @@ def register_security(app):
     def checar_csrf():
         if request.method == "POST":
             enviado = request.form.get("_csrf", "")
-            if not hmac.compare_digest(enviado, session.get("_csrf", "")):
+            if not session.get("_csrf") or not hmac.compare_digest(enviado, session["_csrf"]):
                 abort(400)
 
     @app.after_request
